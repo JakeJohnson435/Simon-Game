@@ -74,18 +74,6 @@ h1 {
     font-size: 2em;
 }
 
-.lightGreen {
-    background-color: lightgreen;
-}
-
-.lightRed {
-    background-color: lightcoral;
-}
-
-.lightYellow {
-    background-color: lightyellow;
-}
-
-.lightBlue {
-    background-color: lightblue;
+.light {
+    background-color: white;
 }
