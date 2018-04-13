@@ -1,5 +1,5 @@
 var game = {
-    count: 0,
+    count: 1,
     possibilities: ['#green','#blue', '#red', '#yellow'],
     currentGame: [],
     player: []
@@ -11,6 +11,7 @@ $(".start").click(function() {
 
 function newGame() {
     start();
+    $(".score").text(1);
 }
 
 function reset() {
@@ -50,50 +51,33 @@ function playGame(color) {
     }, 300);
 }
 
-function mainFunction (input) {
-    $(document).click(function (event) {
-        if(game.currentGame.every((el, i) => el === game.player[i])) {
+var i = 0;
+
+function check() {
+    if (game.currentGame[i] === game.player[i]) {
+        if (game.player.length === game.currentGame.length) {
+            count();
             $(".score").text(game.count + 1);
             nextRound();
-        } else {
-            console.log("Game Over");
-            newGame();
+            i = 0;
+            return
         }
+        i++;
 
-        // for (var i =0; i<game.currentGame.length; i++) {
-        //     if (game.currentGame[i] !== game.player[i]) {
-        //         alert("Game Over");
-        //         newGame();
-        //     }
-        // }
-
-    });
+    } else {
+        alert("Game Over");
+        i = 0;
+        newGame();
+    }
 }
 
-// function konamiCode(input) {
-//     var codeEntered = "";
-//     var key = "3838404037393739666513";
-//     $(document).keydown(function (event) {
-//         codeEntered += ("" + event.keyCode);
-//         if (codeEntered === key) {
-//             return input();
-//         }
-//         if (!key.indexOf(codeEntered))
-//             return;
-//         codeEntered = ("" + event.keyCode);
-//     });
-// }
-
-mainFunction();
+function count() {
+    game.count++;
+}
 
 
 function nextRound() {
-    addCount();
-}
-
-function addCount() {
-    game.count++;
-    generateMove();
+    generateMove()
 }
 
 $("#green").click(function(event) {
@@ -102,6 +86,7 @@ $("#green").click(function(event) {
         $("#green").removeClass("light");
     }, 300);
     game.player.push("#" + this.id);
+    check();
     console.log(game.player);
 });
 
@@ -111,6 +96,7 @@ $("#red").click(function(event) {
         $("#red").removeClass("light");
     }, 300);
     game.player.push("#" + this.id);
+    check();
     console.log(game.player);
 });
 
@@ -120,6 +106,7 @@ $("#blue").click(function(event) {
         $("#blue").removeClass("light");
     }, 300);
     game.player.push("#" + this.id);
+    check();
     console.log(game.player);
 });
 
@@ -129,13 +116,6 @@ $("#yellow").click(function(event) {
         $("#yellow").removeClass("light");
     }, 300);
     game.player.push("#" + this.id);
+    check();
     console.log(game.player);
 });
-
-// $(document).keypress(function(e) {
-//     if(e.which === 13) {
-//         console.log(game.player);
-//         console.log(game.currentGame);
-//         turnCheck()
-//     }
-// });
