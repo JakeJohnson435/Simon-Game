@@ -2,8 +2,7 @@ var game = {
     count: 0,
     possibilities: ['#green','#blue', '#red', '#yellow'],
     currentGame: [],
-    player: [],
-    strict: false
+    player: []
 };
 
 $(".start").click(function() {
@@ -51,26 +50,44 @@ function playGame(color) {
     }, 300);
 }
 
-
-
-function addToPlayer(id) {
-    var color = "#"+id;
-    console.log(color);
-    game.player.push(color);
-    playerTurn();
-}
-
-function playerTurn(x) {
-    if (game.player.valueOf()!== game.currentGame.valueOf()) {
-            alert('Game Over');
+function mainFunction (input) {
+    $(document).click(function (event) {
+        if(game.currentGame.every((el, i) => el === game.player[i])) {
+            $(".score").text(game.count + 1);
+            nextRound();
+        } else {
+            console.log("Game Over");
             newGame();
-    } else {
-            alert('Next round!');
-            nextLevel();
-            }
+        }
+
+        // for (var i =0; i<game.currentGame.length; i++) {
+        //     if (game.currentGame[i] !== game.player[i]) {
+        //         alert("Game Over");
+        //         newGame();
+        //     }
+        // }
+
+    });
 }
 
-function nextLevel() {
+// function konamiCode(input) {
+//     var codeEntered = "";
+//     var key = "3838404037393739666513";
+//     $(document).keydown(function (event) {
+//         codeEntered += ("" + event.keyCode);
+//         if (codeEntered === key) {
+//             return input();
+//         }
+//         if (!key.indexOf(codeEntered))
+//             return;
+//         codeEntered = ("" + event.keyCode);
+//     });
+// }
+
+mainFunction();
+
+
+function nextRound() {
     addCount();
 }
 
@@ -115,8 +132,10 @@ $("#yellow").click(function(event) {
     console.log(game.player);
 });
 
-$(document).keypress(function(e) {
-    if(e.which == 13) {
-        addToPlayer();
-    }
-});
+// $(document).keypress(function(e) {
+//     if(e.which === 13) {
+//         console.log(game.player);
+//         console.log(game.currentGame);
+//         turnCheck()
+//     }
+// });
